@@ -9,14 +9,19 @@ const User = () => {
       .then((a) => a.json())
       .then((b) => {
         setUser(b);
-        setFilter(b)
+        setFilter(b);
       });
   }, []);
 
   const handlevaule = (e) => {
-    let digit = parseInt(e.target.value);
-    console.log("@tm user", user);
-    if (digit >= 0 && digit <= 1000) {
+    let vaulestore = e.target.value;
+    let ascii = vaulestore.charCodeAt(0)
+    let digit = parseInt(vaulestore);
+    if (
+      digit >= 0 &&
+      digit <= 1000 && !(ascii >= 65 && ascii <= 90) &&
+      !(ascii >= 97 && ascii <= 122)
+    ) {
       setFilter(user.slice(0, digit));
 
       // setUser(temp.slice(0,digit))
@@ -32,7 +37,7 @@ const User = () => {
     <>
       <Navigation />
       <h1 className="center">users</h1>
-      <input type="number" className="click" onChange={handlevaule}></input>
+      <input type="text" className="click" onChange={handlevaule}></input>
       <div className="main">
         {filter.map((data) => (
           <div className="sub">
